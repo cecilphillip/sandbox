@@ -3,19 +3,6 @@
 The `IAsyncCollector` lets you save multiple documents within one execution of your Function.
 
 ```csharp
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
-
-public class MyClass
-{
-    public string id { get; set; }
-    public string name { get; set; }
-}
-
 [FunctionName("CosmosDbSample")]
 public static async Task<HttpResponseMessage> Run(
     [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]MyClass[] classes,

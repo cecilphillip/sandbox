@@ -3,15 +3,11 @@
 If you have complex queries that are not supported by `id` and `sqlQuery` of the Cosmos DB input binding, you can use the `DocumentClient` directly.
 
 ```csharp
-using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.Documents.Linq;
-
 [FunctionName("CosmosDBSample")]
 public static async Task<HttpResponseMessage> Run(
-    [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestMessage req, 
-    [DocumentDB("test", "test", ConnectionStringSetting = "CosmosDB"] DocumentClient client, 
-    int minAge, 
+    [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestMessage req,
+    [DocumentDB("test", "test", ConnectionStringSetting = "CosmosDB"] DocumentClient client,
+    int minAge,
     TraceWriter log)
 {
     Uri collectionUri = UriFactory.CreateDocumentCollectionUri("mydb", "mycollection");
@@ -20,7 +16,7 @@ public static async Task<HttpResponseMessage> Run(
         .Where(p => p.Age >= minAge)
         .AsDocumentQuery();
 
-    while (query.HasMoreResults)  
+    while (query.HasMoreResults)
     {
         foreach (Person result in await query.ExecuteNextAsync())
         {
@@ -33,7 +29,7 @@ public static async Task<HttpResponseMessage> Run(
 [!include[](../includes/takeaways-heading.md)]
 
 - Use the `DocumentClient` directly to interact with Cosmos DB if `id` and `sqlQuery` in the binding are not enough for your needs.
-- For best performance, do not create your own instance of `DocumentClient`. Use the one provided by the Functions runtime as an input parameter. 
+- For best performance, do not create your own instance of `DocumentClient`. Use the one provided by the Functions runtime as an input parameter.
 
 [!include[](../includes/read-more-heading.md)]
 

@@ -3,23 +3,12 @@
 You can create your own `DocumentClient` and customize it for your needs, while maintaining a single shared instance for all the Function's executions. The single instance is ensured by the use of the `static` keyword when declaring the `DocumentClient`.
 
 ```csharp
-using System;
-using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
-
 private static DocumentClient client = GetCustomClient();
+
 private static DocumentClient GetCustomClient()
 {
     DocumentClient customClient = new DocumentClient(
-        new Uri(ConfigurationManager.AppSettings["CosmosDBAccountEndpoint"]), 
+        new Uri(ConfigurationManager.AppSettings["CosmosDBAccountEndpoint"]),
         ConfigurationManager.AppSettings["CosmosDBAccountKey"],
         new ConnectionPolicy
         {
